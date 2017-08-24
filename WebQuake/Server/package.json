@@ -1,0 +1,9 @@
+{
+  "name": "Server",
+  "version": "1.0.0",
+  "main": "WebQDS.js",
+  "license": "MIT",
+  "dependencies": {
+    "websocket": "^1.0.24"
+  }
+}
