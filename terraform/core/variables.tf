@@ -1,3 +1,11 @@
+variable "namespace" {
+  default = "quaketerraform"
+}
+
+variable "location" {
+  default = "West US 2"
+}
+
 variable "subscription_id" {
   description = "Subscription ID for Azure account"
 }
