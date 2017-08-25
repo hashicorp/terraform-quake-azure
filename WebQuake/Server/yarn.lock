@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+async@0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/async/-/async-0.9.0.tgz#ac3613b1da9bed1b47510bb4651b8931e47146c7"
+
 debug@^2.2.0:
   version "2.6.8"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.8.tgz#e731531ca2ede27d188222427da17821d68ff4fc"
@@ -20,6 +24,10 @@ nan@^2.3.3:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.6.2.tgz#e4ff34e6c95fdfb5aecc08de6596f43605a7db45"
 
+stdio@0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/stdio/-/stdio-0.2.2.tgz#3a2259ee1644fb8578e5f6866fe872a03bbb3cce"
+
 typedarray-to-buffer@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/typedarray-to-buffer/-/typedarray-to-buffer-3.1.2.tgz#1017b32d984ff556eba100f501589aba1ace2e04"
@@ -34,6 +42,13 @@ websocket@^1.0.24:
     nan "^2.3.3"
     typedarray-to-buffer "^3.1.2"
     yaeti "^0.0.6"
+
+winser@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/winser/-/winser-1.0.2.tgz#429dda9567a06f10826c997f75c9375cfa228fb4"
+  dependencies:
+    async "0.9.0"
+    stdio "0.2.2"
 
 yaeti@^0.0.6:
   version "0.0.6"
