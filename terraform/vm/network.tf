@@ -1,13 +1,13 @@
 resource "azurerm_virtual_network" "test" {
   name                = "acctvn"
   address_space       = ["10.0.0.0/16"]
-  location            = "West US 2"
+  location            = "${var.location}"
   resource_group_name = "${data.terraform_remote_state.core.resource_group_name}"
 }
 
 resource "azurerm_network_security_group" "web" {
-  name     = "quakesg"
-  location = "West US 2"
+  name                = "quakesg"
+  location            = "${var.location}"
   resource_group_name = "${data.terraform_remote_state.core.resource_group_name}"
   
   security_rule {
@@ -37,15 +37,15 @@ resource "azurerm_network_security_group" "web" {
 
 resource "azurerm_subnet" "test" {
   name                 = "acctsub"
-  resource_group_name = "${data.terraform_remote_state.core.resource_group_name}"
+  resource_group_name  = "${data.terraform_remote_state.core.resource_group_name}"
   virtual_network_name = "${azurerm_virtual_network.test.name}"
   address_prefix       = "10.0.2.0/24"
 }
 
 resource "azurerm_network_interface" "test" {
-  name                = "acctni"
-  location            = "West US 2"
-  resource_group_name = "${data.terraform_remote_state.core.resource_group_name}"
+  name                      = "acctni"
+  location                  = "${var.location}"
+  resource_group_name       = "${data.terraform_remote_state.core.resource_group_name}"
   network_security_group_id = "${azurerm_network_security_group.web.id}"
 
   ip_configuration {
@@ -58,8 +58,8 @@ resource "azurerm_network_interface" "test" {
 
 resource "azurerm_public_ip" "test" {
   name                         = "nictestrg"
-  location                     = "West US 2"
-  resource_group_name = "${data.terraform_remote_state.core.resource_group_name}"
+  location                     = "${var.location}"
+  resource_group_name          = "${data.terraform_remote_state.core.resource_group_name}"
   public_ip_address_allocation = "static"
 
   tags {

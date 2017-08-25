@@ -1,16 +1,26 @@
 resource "azurerm_managed_disk" "test" {
   name                 = "datadisk_existing"
-  location             = "West US 2"
+  location             = "${var.location}"
   resource_group_name = "${data.terraform_remote_state.core.resource_group_name}"
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
   disk_size_gb         = "1023"
 }
 
+resource "azurerm_managed_disk" "os" {
+  name                 = "osdisk_existing"
+  location             = "${var.location}"
+  resource_group_name  = "${data.terraform_remote_state.core.resource_group_name}"
+  storage_account_type = "Standard_LRS"
+  create_option        = "Copy"
+  disk_size_gb         = "127"
+  source_resource_id   = "${var.image_uri}"
+}
+
 resource "azurerm_virtual_machine" "test" {
   name                  = "acctvm"
-  location              = "West US 2"
-  resource_group_name = "${data.terraform_remote_state.core.resource_group_name}"
+  location              = "${var.location}"
+  resource_group_name   = "${data.terraform_remote_state.core.resource_group_name}"
   network_interface_ids = ["${azurerm_network_interface.test.id}"]
   vm_size               = "Standard_DS1_v2"
 
@@ -23,12 +33,10 @@ resource "azurerm_virtual_machine" "test" {
   os_profile_windows_config {}
   
   storage_os_disk {
-    name              = "myosdisk1"
-    caching           = "ReadWrite"
-    create_option     = "FromImage"
-    managed_disk_type = "Standard_LRS"
-    image_uri         = "${var.image_uri}"
-    os_type           = "windows"
+    name            = "disk01"
+    create_option   = "Attach"
+    managed_disk_id = "${azurerm_managed_disk.os.id}"
+    os_type         = "windows"
   }
 
   # Optional data disks
