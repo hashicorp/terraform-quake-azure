@@ -18,6 +18,36 @@ resource "azurerm_virtual_network" "test" {
   resource_group_name = "${azurerm_resource_group.test.name}"
 }
 
+resource "azurerm_network_security_group" "web" {
+  name     = "quakesg"
+  location = "West US 2"
+  resource_group_name = "${azurerm_resource_group.test.name}"
+  
+  security_rule {
+    name                       = "quakeserver_ib"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "*"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+  
+  security_rule {
+    name                       = "quakeserver_ob"
+    priority                   = 100
+    direction                  = "Outbound"
+    access                     = "Allow"
+    protocol                   = "*"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+}
+
 resource "azurerm_subnet" "test" {
   name                 = "acctsub"
   resource_group_name  = "${azurerm_resource_group.test.name}"
@@ -29,6 +59,7 @@ resource "azurerm_network_interface" "test" {
   name                = "acctni"
   location            = "West US 2"
   resource_group_name = "${azurerm_resource_group.test.name}"
+  network_security_group_id = "${azurerm_network_security_group.web.id}"
 
   ip_configuration {
     name                          = "testconfiguration1"
