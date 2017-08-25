@@ -1,7 +1,7 @@
 resource "azurerm_managed_disk" "test" {
   name                 = "datadisk_existing"
   location             = "${var.location}"
-  resource_group_name = "${data.terraform_remote_state.core.resource_group_name}"
+  resource_group_name  = "${data.terraform_remote_state.core.resource_group_name}"
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
   disk_size_gb         = "1023"
