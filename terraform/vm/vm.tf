@@ -15,6 +15,7 @@ resource "azurerm_managed_disk" "os" {
   create_option        = "Copy"
   disk_size_gb         = "127"
   source_resource_id   = "${var.image_uri}"
+  os_type              = "Windows"
 }
 
 resource "azurerm_virtual_machine" "test" {
@@ -24,18 +25,15 @@ resource "azurerm_virtual_machine" "test" {
   network_interface_ids = ["${azurerm_network_interface.test.id}"]
   vm_size               = "Standard_DS1_v2"
 
-  # Uncomment this line to delete the OS disk automatically when deleting the VM
-  # delete_os_disk_on_termination = true
-
   # Uncomment this line to delete the data disks automatically when deleting the VM
   delete_data_disks_on_termination = true
-
+  
   os_profile_windows_config {}
   
   storage_os_disk {
-    name            = "disk01"
-    create_option   = "Attach"
+    name            = "${azurerm_managed_disk.os.name}"
     managed_disk_id = "${azurerm_managed_disk.os.id}"
+    create_option   = "Attach"
     os_type         = "windows"
   }
 
@@ -54,12 +52,6 @@ resource "azurerm_virtual_machine" "test" {
     create_option   = "Attach"
     lun             = 1
     disk_size_gb    = "${azurerm_managed_disk.test.disk_size_gb}"
-  }
-
-  os_profile {
-    computer_name  = "quakeserver"
-    admin_username = "njackson"
-    admin_password = "Password1234!"
   }
 
   tags {
