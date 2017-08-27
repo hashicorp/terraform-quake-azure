@@ -467,9 +467,13 @@ WEBS.ServerOnRequest = function(request)
 			continue;
 		if (NET.drivers[s.driver] !== WEBS)
 			continue;
-		if (request.remoteAddress !== s.address)
-			continue;
-		NET.Close(s);
+	
+    // PREVENTS MULTIPLE CONNECTION FROM THE SAME IP ADDRESS
+    // NAT WILL CAUSE DIFFERENT MACHINES ON THE SAME NETWORK 
+    // CONNECTING TO THE REMOTE SERVER TO HAVE THE SAME IP ADDRESS
+    //if (request.remoteAddress !== s.address)
+	  //		continue;
+		//NET.Close(s);
 		break;
 	}
 	WEBS.acceptsockets.push(request.accept('quake', request.origin));

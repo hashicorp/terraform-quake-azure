@@ -11,6 +11,6 @@ data "terraform_remote_state" "core" {
   config {
     storage_account_name = "nictfremotestate"
     container_name       = "quake-core"
-    key                  = "prod.terraform.tfstate"
+    key                  = "quake.terraform.tfstate"
   }
 }
