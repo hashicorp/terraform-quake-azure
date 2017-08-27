@@ -21,3 +21,8 @@ variable "client_secret" {
 variable "tenant_id" {
   description = "Tennant ID for Azure account"
 }
+
+variable "k8s_cluster_name" {
+  description = "Kubernetes cluster name"
+  default = "quakekube"
+}

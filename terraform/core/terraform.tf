@@ -2,7 +2,7 @@ terraform {
   backend "azure" {
     storage_account_name = "nictfremotestate"
     container_name       = "quake-core"
-    key                  = "prod.terraform.tfstate"
+    key                  = "quake.terraform.tfstate"
   }
 }
 
@@ -13,7 +13,19 @@ provider "azurerm" {
   tenant_id       = "${var.tenant_id}"
 }
 
-resource "azurerm_resource_group" "default" {
-  name     = "${var.namespace}"
-  location = "${var.location}"
+module "resource_group" {
+  source    = "./modules/resource_group"
+  
+  namespace = "${var.namespace}"
+  location  = "${var.location}"
+}
+
+module "container_service" {
+  source              = "./modules/container-service"
+
+  client_id           = "${var.client_id}"
+  client_secret       = "${var.client_secret}"
+  location            = "${var.location}"
+  resource_group_name = "${module.resource_group.name}"
+  name                = "${var.k8s_cluster_name}"
 }
