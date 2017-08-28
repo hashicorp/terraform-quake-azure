@@ -459,6 +459,12 @@ WEBS.ServerOnRequest = function(request)
 		request.reject();
 		return;
 	}
+  
+  /*
+   * PREVENTS MULTIPLE CONNECTION FROM THE SAME IP ADDRESS
+   * NAT WILL CAUSE DIFFERENT MACHINES ON THE SAME NETWORK 
+   * CONNECTING TO THE REMOTE SERVER TO HAVE THE SAME IP ADDRESS
+
 	var i, s;
 	for (i = 0; i < NET.activeSockets.length; ++i)
 	{
@@ -468,13 +474,11 @@ WEBS.ServerOnRequest = function(request)
 		if (NET.drivers[s.driver] !== WEBS)
 			continue;
 	
-    // PREVENTS MULTIPLE CONNECTION FROM THE SAME IP ADDRESS
-    // NAT WILL CAUSE DIFFERENT MACHINES ON THE SAME NETWORK 
-    // CONNECTING TO THE REMOTE SERVER TO HAVE THE SAME IP ADDRESS
-    //if (request.remoteAddress !== s.address)
-	  //		continue;
-		//NET.Close(s);
+    if (request.remoteAddress !== s.address)
+	  		continue;
+		NET.Close(s);
 		break;
 	}
+  */
 	WEBS.acceptsockets.push(request.accept('quake', request.origin));
 };
