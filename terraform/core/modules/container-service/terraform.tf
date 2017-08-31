@@ -6,7 +6,7 @@ resource "azurerm_container_service" "default" {
   orchestration_platform = "Kubernetes"
 
   master_profile {
-    count      = 1
+    count = 1
     dns_prefix = "quakeserver"
   }
 

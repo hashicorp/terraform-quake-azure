@@ -13,8 +13,3 @@ output "k8s_master" {
 output "k8s_master_name" {
   value = "${var.k8s_cluster_name}"
 }
-
-output "k8s_agents" {
-  value = "${module.container_service.agents_fqdn}"
-}
-
