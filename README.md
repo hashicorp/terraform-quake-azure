@@ -32,7 +32,7 @@ export AWS_REGION=eu-west-1
  cd terraform/core
 
  # Set storage_account_name not supported currently by interpolation
- sed -i -e "s/nictfremotestate/${REMOTE_STATE_ACCOUNT}/g" terraform.tf
+ sed "s/nictfremotestate/$REMOTE_STATE_ACCOUNT/g" -i terraform.tf
  
  # Install modules and fetch plugins
  terraform init
@@ -55,7 +55,7 @@ export AWS_REGION=eu-west-1
  cd terraform/k8s-service
 
  # Set storage_account_name not supported currently by interpolation
- sed -i -e "s/nictfremotestate/${REMOTE_STATE_ACCOUNT}/g" terraform.tf
+ sed "s/nictfremotestate/$REMOTE_STATE_ACCOUNT/g" -i terraform.tf
 
  # Install modules and fetch plugins
  terraform init
