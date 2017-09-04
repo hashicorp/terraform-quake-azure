@@ -3,8 +3,8 @@ write-host "`n  ## NODEJS INSTALLER ## `n"
 ### CONFIGURATION
 
 # nodejs
-$version = "4.4.7-x64"
-$url = "https://nodejs.org/dist/latest-v4.x/node-v$version.msi"
+$version = "8.4.0"
+$url = "https://nodejs.org/dist/$version/node-v$version-x64.msi"
 
 # git
 $git_version = "2.9.2"
