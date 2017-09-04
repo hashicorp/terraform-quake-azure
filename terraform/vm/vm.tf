@@ -49,9 +49,23 @@ resource "azurerm_virtual_machine" "test" {
     lun             = 1
     disk_size_gb    = "${azurerm_managed_disk.test.disk_size_gb}"
   }
+  
+  os_profile {
+    computer_name  = "quakeserver"
+    admin_username = "quake"
+    admin_password = "Password1234!"
+  }
 
   tags {
     environment = "dev"
+  }
+}
+
+data "template_file" "init" {
+  template = "${file("./templates/provision_settings.json")}"
+
+  vars {
+    arm_access_key = "${var.arm_access_key}"
   }
 }
 
@@ -64,14 +78,7 @@ resource "azurerm_virtual_machine_extension" "test" {
   type                 = "CustomScript"
   type_handler_version = "2.0"
 
-  settings = <<SETTINGS
-    {
-        "fileUris" : "",
-        "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File",
-        "storageAccountName": "nictfremotestate", 
-        "storageAccountKey": "${var.arm_access_key}",
-    }
-SETTINGS
+  settings = "${data.template_file.init.rendered}"
 
   tags {
     environment = "Production"
