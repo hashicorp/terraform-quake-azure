@@ -17,7 +17,9 @@ resource "azurerm_virtual_machine" "test" {
   # Uncomment this line to delete the data disks automatically when deleting the VM
   delete_data_disks_on_termination = true
   
-  os_profile_windows_config {}
+  os_profile_windows_config {
+    provision_vm_agent = true
+  }
   
   storage_image_reference {
       publisher = "MicrosoftWindowsServer"
@@ -74,9 +76,9 @@ resource "azurerm_virtual_machine_extension" "test" {
   location              = "${var.location}"
   resource_group_name   = "${data.terraform_remote_state.core.resource_group_name}"
   virtual_machine_name = "${azurerm_virtual_machine.test.name}"
-  publisher            = "Microsoft.OSTCExtensions"
-  type                 = "CustomScript"
-  type_handler_version = "2.0"
+  publisher            = "Microsoft.Compute"
+  type                 = "CustomScriptExtension"
+  type_handler_version = "1.8"
 
   settings = "${data.template_file.init.rendered}"
 

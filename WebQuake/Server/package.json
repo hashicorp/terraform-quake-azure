@@ -1,5 +1,5 @@
 {
-  "name": "Server",
+  "name": "QuakeServer",
   "version": "1.0.0",
   "main": "WebQDS.js",
   "license": "MIT",
