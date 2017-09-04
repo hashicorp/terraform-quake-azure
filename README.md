@@ -68,10 +68,28 @@ export AWS_REGION=eu-west-1
 ```
 
 ### VM [terraform/vm](terraform/vm)
-NOTE: this example attaches a snapshot from a private repository and can not be created, REFERENCE ONLY.
 - references remote state in core
 - Windows VM
 - virtual network
 - security group
 - managed disks
 - dns, AWS Route 53
+- virt machine extension
+- remote provisioning with Powershell
+
+#### Running
+```
+ cd terraform/core
+
+ # Set storage_account_name not supported currently by interpolation
+ sed "s/nictfremotestate/$REMOTE_STATE_ACCOUNT/g" -i terraform.tf
+ 
+ # Install modules and fetch plugins
+ terraform init
+
+ # Run a plan to see what changes will be made
+ terraform plan
+
+ # Apply the changes
+ terraform apply
+```

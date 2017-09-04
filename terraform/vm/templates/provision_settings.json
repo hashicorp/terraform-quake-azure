@@ -1,4 +1,4 @@
 {
-    "fileUris" : "https://raw.githubusercontent.com/hashicorp/terraform-quake-azure/provision/terraform/vm/templates/provision.ps1",
+    "fileUris" : ["https://raw.githubusercontent.com/hashicorp/terraform-quake-azure/master/terraform/vm/templates/provision.ps1"],
     "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File provision.ps1"
 }

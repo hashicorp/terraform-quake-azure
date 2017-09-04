@@ -99,7 +99,7 @@ Start-Process "msiexec" -ArgumentList "/qn /l* C:\node-log.txt /i $node_msi" -Wa
 
 $oldPath=(Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).Path
 $newPath="%APPDATA%\npm;C:\Program Files\nodejs;" + $oldPath
-Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH –Value $newPath
+Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
 
 $env:Path = $newPath
 
