@@ -1,6 +1,6 @@
 terraform {
   backend "azure" {
-    storage_account_name = "quaketfremotestate"
+    storage_account_name = "nictfremotestate"
     container_name       = "quake-core"
     key                  = "quake.terraform.tfstate"
   }

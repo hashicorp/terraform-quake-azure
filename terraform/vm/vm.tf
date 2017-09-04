@@ -7,17 +7,6 @@ resource "azurerm_managed_disk" "test" {
   disk_size_gb         = "1023"
 }
 
-resource "azurerm_managed_disk" "os" {
-  name                 = "osdisk_existing"
-  location             = "${var.location}"
-  resource_group_name  = "${data.terraform_remote_state.core.resource_group_name}"
-  storage_account_type = "Standard_LRS"
-  create_option        = "Copy"
-  disk_size_gb         = "127"
-  source_resource_id   = "${var.image_uri}"
-  os_type              = "Windows"
-}
-
 resource "azurerm_virtual_machine" "test" {
   name                  = "acctvm"
   location              = "${var.location}"
@@ -28,13 +17,22 @@ resource "azurerm_virtual_machine" "test" {
   # Uncomment this line to delete the data disks automatically when deleting the VM
   delete_data_disks_on_termination = true
   
-  os_profile_windows_config {}
+  os_profile_windows_config {
+    provision_vm_agent = true
+  }
+  
+  storage_image_reference {
+      publisher = "MicrosoftWindowsServer"
+      offer     = "WindowsServer"
+      sku       = "2012-Datacenter"
+      version   = "latest"
+  }
   
   storage_os_disk {
-    name            = "${azurerm_managed_disk.os.name}"
-    managed_disk_id = "${azurerm_managed_disk.os.id}"
-    create_option   = "Attach"
-    os_type         = "windows"
+    name              = "quakeosdisk1"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
+    managed_disk_type = "Standard_LRS"
   }
 
   # Optional data disks
@@ -53,8 +51,38 @@ resource "azurerm_virtual_machine" "test" {
     lun             = 1
     disk_size_gb    = "${azurerm_managed_disk.test.disk_size_gb}"
   }
+  
+  os_profile {
+    computer_name  = "quakeserver"
+    admin_username = "quake"
+    admin_password = "Password1234!"
+  }
 
   tags {
     environment = "dev"
+  }
+}
+
+data "template_file" "init" {
+  template = "${file("./templates/provision_settings.json")}"
+
+  vars {
+    arm_access_key = "${var.arm_access_key}"
+  }
+}
+
+resource "azurerm_virtual_machine_extension" "test" {
+  name                 = "quakeserver"
+  location              = "${var.location}"
+  resource_group_name   = "${data.terraform_remote_state.core.resource_group_name}"
+  virtual_machine_name = "${azurerm_virtual_machine.test.name}"
+  publisher            = "Microsoft.Compute"
+  type                 = "CustomScriptExtension"
+  type_handler_version = "1.8"
+
+  settings = "${data.template_file.init.rendered}"
+
+  tags {
+    environment = "Production"
   }
 }
