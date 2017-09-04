@@ -7,17 +7,6 @@ resource "azurerm_managed_disk" "test" {
   disk_size_gb         = "1023"
 }
 
-resource "azurerm_managed_disk" "os" {
-  name                 = "osdisk_existing"
-  location             = "${var.location}"
-  resource_group_name  = "${data.terraform_remote_state.core.resource_group_name}"
-  storage_account_type = "Standard_LRS"
-  create_option        = "Copy"
-  disk_size_gb         = "127"
-  source_resource_id   = "${var.image_uri}"
-  os_type              = "Windows"
-}
-
 resource "azurerm_virtual_machine" "test" {
   name                  = "acctvm"
   location              = "${var.location}"
@@ -30,11 +19,18 @@ resource "azurerm_virtual_machine" "test" {
   
   os_profile_windows_config {}
   
+  storage_image_reference {
+      publisher = "MicrosoftWindowsServer"
+      offer     = "WindowsServer"
+      sku       = "2012-Datacenter"
+      version   = "latest"
+  }
+  
   storage_os_disk {
-    name            = "${azurerm_managed_disk.os.name}"
-    managed_disk_id = "${azurerm_managed_disk.os.id}"
-    create_option   = "Attach"
-    os_type         = "windows"
+    name              = "quakeosdisk1"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
+    managed_disk_type = "Standard_LRS"
   }
 
   # Optional data disks
@@ -56,5 +52,28 @@ resource "azurerm_virtual_machine" "test" {
 
   tags {
     environment = "dev"
+  }
+}
+
+resource "azurerm_virtual_machine_extension" "test" {
+  name                 = "quakeserver"
+  location              = "${var.location}"
+  resource_group_name   = "${data.terraform_remote_state.core.resource_group_name}"
+  virtual_machine_name = "${azurerm_virtual_machine.test.name}"
+  publisher            = "Microsoft.OSTCExtensions"
+  type                 = "CustomScript"
+  type_handler_version = "2.0"
+
+  settings = <<SETTINGS
+    {
+        "fileUris" : "",
+        "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File",
+        "storageAccountName": "nictfremotestate", 
+        "storageAccountKey": "${var.arm_access_key}",
+    }
+SETTINGS
+
+  tags {
+    environment = "Production"
   }
 }
