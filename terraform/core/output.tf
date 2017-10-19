@@ -6,7 +6,7 @@ output "resource_group_name" {
   value = "${module.resource_group.name}"
 }
 
-output "k8s_master" {
+output "k8s_master_dns" {
   value = "${module.container_service.master_fqdn}"
 }
 

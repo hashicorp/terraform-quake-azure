@@ -1,14 +1,11 @@
-provider "aws" {}
-
-data "aws_route53_zone" "selected" {
-  name         = "${var.tld}."
-  private_zone = false
+provider "dnsimple" {
 }
 
-resource "aws_route53_record" "a" {
-  zone_id = "${data.aws_route53_zone.selected.zone_id}"
-  name    = "${var.a_name}.${data.aws_route53_zone.selected.name}"
-  type    = "A"
-  ttl     = "300"
-  records = ["${var.a_record}"]
+# Create a record
+resource "dnsimple_record" "www" {
+  domain = "${var.tld}"
+  name   = "${var.a_name}"
+  value  = "${var.a_record}"
+  type   = "A"
+  ttl    = 360
 }

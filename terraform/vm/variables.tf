@@ -22,7 +22,3 @@ variable "image_uri" {
 variable "location" {
   default = "West US 2"
 }
-
-variable "arm_access_key" {
-
-}

@@ -66,10 +66,6 @@ resource "azurerm_virtual_machine" "test" {
 
 data "template_file" "init" {
   template = "${file("./templates/provision_settings.json")}"
-
-  vars {
-    arm_access_key = "${var.arm_access_key}"
-  }
 }
 
 resource "azurerm_virtual_machine_extension" "test" {

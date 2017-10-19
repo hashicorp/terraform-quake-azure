@@ -8,11 +8,11 @@ data "terraform_remote_state" "core" {
 }
 
 provider "kubernetes" {
-  host       = "https://${data.terraform_remote_state.core.k8s_master}"
+  host       = "https://${data.terraform_remote_state.core.k8s_master_dns}"
 }
 
 // Comment out these two blocks if you do not want to use AWS DNS
-module "aws_dns" {
+module "dns" {
   source   = "../modules/dns"
   tld      = "demo.gs"
   a_name   = "client.quake"
@@ -20,5 +20,5 @@ module "aws_dns" {
 }
 
 output "service_public_dns" {
-  value = "${module.aws_dns.dns_name}"
+  value = "${module.dns.dns_name}"
 }

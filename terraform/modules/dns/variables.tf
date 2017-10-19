@@ -9,3 +9,8 @@ variable "a_name" {
 variable "a_record" {
   description = "ip address to point record at"
 }
+
+variable "a_type" {
+  description = "ip address to point record at"
+  default = "A"
+}

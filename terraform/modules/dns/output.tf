@@ -1,3 +1,3 @@
 output "dns_name" {
-  value = "${aws_route53_record.a.name}"
+  value = "${dnsimple_record.www.hostname}"
 }

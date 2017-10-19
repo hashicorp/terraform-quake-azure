@@ -15,8 +15,8 @@ data "terraform_remote_state" "core" {
   }
 }
 
-// Comment out these two blocks if you do not want to use AWS DNS
-module "aws_dns" {
+// Comment out these two blocks if you do not want to use DNSimple
+module "dns" {
   source   = "../modules/dns"
   tld      = "demo.gs"
   a_name   = "server.quake"
@@ -24,6 +24,6 @@ module "aws_dns" {
 }
 
 output "vm_public_dns" {
-  value = "${module.aws_dns.dns_name}"
+  value = "${module.dns.dns_name}"
 }
 
