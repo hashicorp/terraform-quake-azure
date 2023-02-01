@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 output "resource_group_id" {
   value = "${module.resource_group.id}"
 }

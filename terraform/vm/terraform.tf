@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
   subscription_id = "${var.subscription_id}"

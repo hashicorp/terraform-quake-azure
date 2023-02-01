@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 resource "azurerm_managed_disk" "test" {
   name                 = "datadisk_existing"
   location             = "${var.location}"
