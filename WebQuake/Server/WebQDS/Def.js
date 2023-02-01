@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 Def = {};
 
 Def.timedate = 'Exe: 10:13:04 Dec  8 2013\n';

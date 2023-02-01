@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 # Configure the Microsoft Azure Provider
 resource "azurerm_container_service" "default" {
   name                   = "${var.name}"

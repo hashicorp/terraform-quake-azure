@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 VID = {};
 
 VID.d_8to24table = new Uint32Array(new ArrayBuffer(1024));

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 Vec = {};
 
 Vec.origin = [0.0, 0.0, 0.0];
