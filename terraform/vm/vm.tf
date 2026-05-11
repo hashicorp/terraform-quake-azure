@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2017, 2026
+
 resource "azurerm_managed_disk" "test" {
   name                 = "datadisk_existing"
   location             = "${var.location}"

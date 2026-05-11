@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2017, 2026
+
 data "terraform_remote_state" "core" {
   backend = "azure"
   config {

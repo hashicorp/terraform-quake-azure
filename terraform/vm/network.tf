@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2017, 2026
+
 resource "azurerm_virtual_network" "test" {
   name                = "acctvn"
   address_space       = ["10.0.0.0/16"]

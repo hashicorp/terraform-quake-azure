@@ -1,3 +1,7 @@
+/**
+ * Copyright IBM Corp. 2017, 2026
+ */
+
 Sys = {};
 
 Sys.events = ['onbeforeunload', 'oncontextmenu', 'onfocus', 'onkeydown', 'onkeyup', 'onmousedown', 'onmouseup', 'onmousewheel', 'onunload', 'onwheel'];

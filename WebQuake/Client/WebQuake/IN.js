@@ -1,3 +1,7 @@
+/**
+ * Copyright IBM Corp. 2017, 2026
+ */
+
 IN = {};
 
 IN.mouse_x = 0.0;

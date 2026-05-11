@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2017, 2026
+
 resource "kubernetes_pod" "quake" {
   metadata {
     name = "quake-client"
