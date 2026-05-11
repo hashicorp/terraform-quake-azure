@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2017, 2026
+
 variable "subscription_id" {
   description = "Subscription ID for Azure account"
 }

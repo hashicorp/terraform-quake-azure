@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2017, 2026
+
 # Configure the Microsoft Azure Provider
 resource "azurerm_container_service" "default" {
   name                   = "${var.name}"

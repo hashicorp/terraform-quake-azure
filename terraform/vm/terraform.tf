@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2017, 2026
+
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
   subscription_id = "${var.subscription_id}"

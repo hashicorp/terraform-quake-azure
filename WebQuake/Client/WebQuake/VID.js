@@ -1,3 +1,7 @@
+/**
+ * Copyright IBM Corp. 2017, 2026
+ */
+
 VID = {};
 
 VID.d_8to24table = new Uint32Array(new ArrayBuffer(1024));

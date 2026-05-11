@@ -1,3 +1,7 @@
+/**
+ * Copyright IBM Corp. 2017, 2026
+ */
+
 Def = {};
 
 Def.timedate = 'Exe: 10:13:04 Dec  8 2013\n';

@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2017, 2026
+
 output "resource_group_id" {
   value = "${module.resource_group.id}"
 }

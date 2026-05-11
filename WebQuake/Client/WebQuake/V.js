@@ -1,3 +1,7 @@
+/**
+ * Copyright IBM Corp. 2017, 2026
+ */
+
 V = {};
 
 V.dmg_time = 0.0;

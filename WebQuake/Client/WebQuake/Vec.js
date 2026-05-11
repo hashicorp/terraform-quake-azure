@@ -1,3 +1,7 @@
+/**
+ * Copyright IBM Corp. 2017, 2026
+ */
+
 Vec = {};
 
 Vec.origin = [0.0, 0.0, 0.0];

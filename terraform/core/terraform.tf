@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2017, 2026
+
 terraform {
   backend "azurerm" {
     storage_account_name = "nictfremotestate"

@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2017, 2026
+
 variable "client_id" {
   description = "Client ID for Azure account"
 }
